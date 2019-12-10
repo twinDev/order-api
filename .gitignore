@@ -1,0 +1,16 @@
+node_modules/
+package-lock.json
+.DS_Store
+package-lock.json
+dist
+.stryker-tmp
+reports
+launc.json
+cert.pem
+*.pem
+*.cert
+*.log
+keys.json
+gce.json
+*.env
+*.prod
