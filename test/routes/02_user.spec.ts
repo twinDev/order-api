@@ -28,7 +28,7 @@ describe('userRoute', async () => {
   before(done => {
     expect(UserModel.modelName).to.be.equal('User')
 
-    UserModel.collection.drop()
+    UserModel.collection.drop(async (err, result) => {
       const newUser = new UserModel(user)
       newUser.password = bcrypt.hashSync(newUser.password, 10)
 
@@ -41,7 +41,7 @@ describe('userRoute', async () => {
         done()
       })
     })
-  
+  })
 
   it('should be able to login', () => {
     return chai
