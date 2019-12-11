@@ -25,7 +25,7 @@ describe('userRoute', async () => {
 
   let token
 
-  before(done => {
+  before(async () => {
     expect(UserModel.modelName).to.be.equal('User')
 
     UserModel.collection.drop(async (err, result) => {
@@ -38,7 +38,6 @@ describe('userRoute', async () => {
 
       newUser.save(async (error, userCreated) => {
         user._id = userCreated._id
-        done()
       })
     })
   })
