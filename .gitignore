@@ -14,3 +14,4 @@ keys.json
 gce.json
 *.env
 *.prod
+bitbucket-pipelines.yml
