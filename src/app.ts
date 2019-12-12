@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser'
 import * as express from 'express'
 import * as expressWinston from 'express-winston'
 import * as mongoose from 'mongoose'
+import mongoose1 = require('mongoose');
 import * as winston from 'winston'
 import { APIRoute } from '../src/routes/api'
 import { OrderRoute } from '../src/routes/order'
@@ -34,7 +35,8 @@ class App {
   }
 
   private mongoSetup(): void {
-    mongoose.connect(this.mongoUrl, { useUnifiedTopology: true })
+    mongoose1.Promise = global.Promise
+    mongoose1.connect(this.mongoUrl, { useUnifiedTopology: true })
   }
 }
 
