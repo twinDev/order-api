@@ -56,13 +56,12 @@ describe('userRoute', async () => {
 
   it('should be able to login', async () => {
     try {
-          const res = await chai
+      const res = await chai
         .request(app)
         .get(`/users/login?username=${user.username}&password=${user.password}`)
       expect(res.status).to.be.equal(200)
-      token = res.body.token
-    }
-    catch (err) {
+      token = await res.body.token
+    } catch (err) {
       throw new Error(err.message)
     }
   })
