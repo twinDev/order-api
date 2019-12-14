@@ -4,10 +4,10 @@ import * as expressWinston from 'express-winston'
 import * as mongoose from 'mongoose'
 import mongoose1 = require('mongoose');
 import * as winston from 'winston'
-import { APIRoute } from '../src/routes/api'
-import { OrderRoute } from '../src/routes/order'
-import { UserRoute } from '../src/routes/user'
-import * as errorHandler from '../src/utility/errorHandler'
+import { APIRoute } from './routes/api'
+import { OrderRoute } from './routes/order'
+import { UserRoute } from './routes/user'
+import * as errorHandler from './utility/errorHandler'
 
 class App {
   public app: express.Application
@@ -36,7 +36,7 @@ class App {
 
   private mongoSetup(): void {
     mongoose1.Promise = global.Promise
-    mongoose1.connect(this.mongoUrl, { useUnifiedTopology: true })
+    mongoose1.connect(this.mongoUrl, { useUnifiedTopology: true, useCreateIndex: true })
   }
 }
 
