@@ -25,7 +25,7 @@ describe('userRoute', async () => {
 
   let token
 
-  before(done => {
+  before((done) => {
     expect(UserModel.modelName).to.be.equal('User')
 
     UserModel.collection.drop(async (error, result) => {
