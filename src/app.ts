@@ -2,12 +2,11 @@ import * as bodyParser from 'body-parser'
 import * as express from 'express'
 import * as expressWinston from 'express-winston'
 import * as mongoose from 'mongoose'
-import mongoose1 = require('mongoose');
 import * as winston from 'winston'
-import { APIRoute } from './routes/api'
-import { OrderRoute } from './routes/order'
-import { UserRoute } from './routes/user'
-import * as errorHandler from './utility/errorHandler'
+import { APIRoute } from '../src/routes/api'
+import { OrderRoute } from '../src/routes/order'
+import { UserRoute } from '../src/routes/user'
+import * as errorHandler from '../src/utility/errorHandler'
 
 class App {
   public app: express.Application
@@ -23,7 +22,7 @@ class App {
     this.userRoutes.routes(this.app)
     this.apiRoutes.routes(this.app)
     this.orderRoutes.routes(this.app)
-    this.mongoSetup(global)
+    this.mongoSetup()
     this.app.use(
       expressWinston.errorLogger({
         transports: [new winston.transports.Console()],
@@ -34,12 +33,10 @@ class App {
     this.app.use(errorHandler.errorHanlder)
   }
 
-  private async mongoSetup(global: { Promise: any; }) : Promise<void>{
+  private mongoSetup(): void {
     try {
-      mongoose1.Promise = await global.Promise
-      mongoose1.connect(this.mongoUrl, { useUnifiedTopology: true, useCreateIndex: true })
-    }
-    catch (err) {
+      mongoose.connect(this.mongoUrl, { useUnifiedTopology: true })
+    } catch (err) {
       throw new Error(err.message)
     }
   }
