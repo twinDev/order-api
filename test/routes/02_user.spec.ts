@@ -63,6 +63,7 @@ describe('userRoute', async () => {
         expect(res.status).to.be.equal(200)
         token = res.body.token
       })
+      .catch()
   })
 
   it('should respond with HTTP 404 status because there is no user', () => {
@@ -73,6 +74,7 @@ describe('userRoute', async () => {
       .then(res => {
         expect(res.status).to.be.equal(404)
       })
+      .catch()
   })
   it('should create a new user and retrieve it back', () => {
     user.email = 'unique_email@email.com'
@@ -85,6 +87,7 @@ describe('userRoute', async () => {
         expect(res.status).to.be.equal(201)
         expect(res.body.username).to.be.equal(user.username)
       })
+      .catch()
   })
   it('should return the user created on the step before', () => {
     return chai
@@ -95,6 +98,7 @@ describe('userRoute', async () => {
         expect(res.status).to.be.equal(200)
         expect(res.body.username).to.be.equal(user.username)
       })
+      .catch()
   })
   it('should updated the user John', () => {
     user.username = 'John_Updated'
@@ -113,6 +117,7 @@ describe('userRoute', async () => {
       .then(res => {
         expect(res.status).to.be.equal(204)
       })
+      .catch()
   })
   it('should return the user updated on the step before', () => {
     return chai
@@ -129,6 +134,7 @@ describe('userRoute', async () => {
         expect(res.body.phone).to.be.equal(user.phone)
         expect(res.body.userStatus).to.be.equal(user.userStatus)
       })
+      .catch()
   })
   it('should return 404 because the user does not exist', () => {
     user.firstName = 'Mary Jane'
@@ -141,6 +147,7 @@ describe('userRoute', async () => {
       .then(res => {
         expect(res.status).to.be.equal(404)
       })
+      .catch()
   })
   it('should remove an existent user', () => {
     return chai
@@ -150,6 +157,7 @@ describe('userRoute', async () => {
       .then(res => {
         expect(res.status).to.be.equal(204)
       })
+      .catch()
   })
   it('should return 404 when it is trying to remove an user because the user does not exist', () => {
     return chai
@@ -159,5 +167,6 @@ describe('userRoute', async () => {
       .then(res => {
         expect(res.status).to.be.equal(404)
       })
+      .catch()
   })
 })
