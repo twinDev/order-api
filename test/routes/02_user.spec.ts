@@ -63,7 +63,9 @@ describe('userRoute', async () => {
         expect(res.status).to.be.equal(200)
         token = res.body.token
       })
-      .catch()
+      .catch(err => {
+        throw new Error(err.message)
+      })
   })
 
   it('should respond with HTTP 404 status because there is no user', () => {
