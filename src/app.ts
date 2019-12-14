@@ -35,7 +35,7 @@ class App {
 
   private mongoSetup(): void {
     try {
-      mongoose.connect(this.mongoUrl, { useUnifiedTopology: true })
+      mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology:true })
     } catch (err) {
       throw new Error(err.message)
     }
