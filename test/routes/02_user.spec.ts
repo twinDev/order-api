@@ -25,7 +25,7 @@ describe('userRoute', async () => {
 
   let token
 
-  before((done) => {
+  before(done => {
     expect(UserModel.modelName).to.be.equal('User')
 
     UserModel.collection.drop(async (error, result) => {
@@ -35,7 +35,7 @@ describe('userRoute', async () => {
         if (response) {
           newUser.password = bcrypt.hashSync(newUser.password, 10)
         }
-        
+
         OrderAPILogger.logger.info(
           'calling save to create a default user for loging'
         )
@@ -44,13 +44,11 @@ describe('userRoute', async () => {
           try {
             user._id = await userCreated._id
             done()
-          }
-          catch (error) {
+          } catch (error) {
             throw new Error(err.message)
           }
         })
-      }
-      catch (err) {
+      } catch (err) {
         throw new Error(error.message)
       }
     })

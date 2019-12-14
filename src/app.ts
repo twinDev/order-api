@@ -23,7 +23,7 @@ class App {
     this.userRoutes.routes(this.app)
     this.apiRoutes.routes(this.app)
     this.orderRoutes.routes(this.app)
-    this.mongoSetup()
+    this.mongoSetup(global)
     this.app.use(
       expressWinston.errorLogger({
         transports: [new winston.transports.Console()],
@@ -34,9 +34,14 @@ class App {
     this.app.use(errorHandler.errorHanlder)
   }
 
-  private mongoSetup(): void {
-    mongoose1.Promise = global.Promise
-    mongoose1.connect(this.mongoUrl, { useUnifiedTopology: true, useCreateIndex: true })
+  private async mongoSetup(global: { Promise: any; }) : Promise<void>{
+    try {
+      mongoose1.Promise = await global.Promise
+      mongoose1.connect(this.mongoUrl, { useUnifiedTopology: true, useCreateIndex: true })
+    }
+    catch (err) {
+      throw new Error(err.message)
+    }
   }
 }
 
