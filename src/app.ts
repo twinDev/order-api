@@ -33,7 +33,7 @@ class App {
     this.app.use(errorHandler.errorHanlder)
   }
 
-  private mongoSetup(): void {
+  private async mongoSetup() {
     try {
       mongoose.connect(this.mongoUrl, {
         useNewUrlParser: true,
