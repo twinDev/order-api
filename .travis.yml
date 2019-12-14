@@ -4,5 +4,6 @@ node_js:
 sudo: required
 services:
   - docker
+  - mongodb+srv
 script:
   - npm run test
