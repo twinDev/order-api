@@ -31,7 +31,7 @@ describe('userRoute', async () => {
 
       UserModel.collection.drop(async (error, result) => {
         try {
-          const response = await result
+          const response = result
           const newUser = new UserModel(user)
           if (response) {
             newUser.password = bcrypt.hashSync(newUser.password, 10)
@@ -43,7 +43,7 @@ describe('userRoute', async () => {
 
           newUser.save(async (err, userCreated) => {
             try {
-              user._id = await userCreated._id
+              user._id = userCreated._id
               done()
             } catch (error) {
               throw new Error(err.message)
@@ -55,20 +55,18 @@ describe('userRoute', async () => {
       })
     })
 
-  it('should be able to login', async () => {     
-    try {
-      const res = await chai
-        .request(app)
-        .get(`/users/login?username=${user.username}&password=${user.password}`)
+it('should be able to login', async () => {
+  return chai
+    .request(app)
+    .get(`/users/login?username=${user.username}&password=${user.password}`)
+    .then(res => {
       expect(res.status).to.be.equal(200)
       token = res.body.token
-    }
-    catch (err) {
-      throw new Error(err.message)
-    }
-  })
+    })
+    .catch()
+})
 
-  it('should respond with HTTP 404 status because there is no user', () => {
+  it('should respond with HTTP 404 status because there is no user', async () => {
     return chai
       .request(app)
       .get(`/users/NO_USER`)
@@ -78,7 +76,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should create a new user and retrieve it back', () => {
+  it('should create a new user and retrieve it back', async () => {
     user.email = 'unique_email@email.com'
     return chai
       .request(app)
@@ -91,7 +89,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should return the user created on the step before', () => {
+  it('should return the user created on the step before', async () => {
     return chai
       .request(app)
       .get(`/users/${user.username}`)
@@ -102,7 +100,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should updated the user John', () => {
+  it('should updated the user John', async () => {
     user.username = 'John_Updated'
     user.firstName = 'John Updated'
     user.lastName = 'Doe Updated'
@@ -121,7 +119,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should return the user updated on the step before', () => {
+  it('should return the user updated on the step before', async () => {
     return chai
       .request(app)
       .get(`/users/${user.username}`)
@@ -138,7 +136,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should return 404 because the user does not exist', () => {
+  it('should return 404 because the user does not exist', async () => {
     user.firstName = 'Mary Jane'
 
     return chai
@@ -151,7 +149,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should remove an existent user', () => {
+  it('should remove an existent user', async () => {
     return chai
       .request(app)
       .del(`/users/${user.username}`)
@@ -161,7 +159,7 @@ describe('userRoute', async () => {
       })
       .catch()
   })
-  it('should return 404 when it is trying to remove an user because the user does not exist', () => {
+  it('should return 404 when it is trying to remove an user because the user does not exist', async () => {
     return chai
       .request(app)
       .del(`/users/Mary`)
