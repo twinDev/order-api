@@ -39,9 +39,9 @@ class App {
         useUnifiedTopology: true,
         useCreateIndex: true
       })
-      .then(() => {
+      .then((response) => {
         // tslint:disable-next-line: no-console
-        console.log('Connected')
+        console.log('Connected' + response)
       })
       .catch((error) => {
         // tslint:disable-next-line: no-console
