@@ -34,21 +34,19 @@ class App {
   }
 
   private async mongoSetup() {
-    try {
       mongoose.connect(this.mongoUrl, {
         useNewUrlParser: true,
-        useCreateIndex: true,
         useUnifiedTopology: true,
-        useFindAndModify: true,
+        useCreateIndex: true
       })
       .then(() => {
         // tslint:disable-next-line: no-console
         console.log('Connected')
       })
-      .catch()
-    } catch (err) {
-      throw new Error(err.message)
-    }
+      .catch((error) => {
+        // tslint:disable-next-line: no-console
+        console.log(error)
+      })
   }
 }
 
